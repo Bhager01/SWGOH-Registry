@@ -4,6 +4,10 @@ if (interaction.isButton()) {
     if (interaction.customId === 'Global_Verify_Button')
     {
         await interaction.deferUpdate({ephemeral: true })
+        const row = new Discord.ActionRowBuilder()
+                .addComponents(new ButtonBuilder().setCustomId('Global_Verify_Button').setLabel('Verify').setStyle('Secondary').setDisabled(true));
+        await interaction.editReply({ components: [row] });
+        
         const embed = interaction.message.embeds[0]
         const allyCode = embed.title.replace(/\D/g, "")
         const comlinkPayload = {'discordId':interaction.user.id, "method":"verification", "payload": {"allyCode": String(allyCode)}, "enums": false}
@@ -23,14 +27,16 @@ if (interaction.isButton()) {
 
         const comlinkJSON = await comlinkResponse.json()
         if(comlinkJSON == 'verified')
-        {   
-            const row = new Discord.ActionRowBuilder()
-                .addComponents(new ButtonBuilder().setCustomId('Global_Verify_Button').setLabel('Verify').setStyle('Primary').setDisabled(true));
-            await interaction.editReply({ components: [row] })
+        {
             await interaction.followUp({ content: 'You have been sucessfully verified!', ephemeral: true });
         }
         else
+        {
+            const row = new Discord.ActionRowBuilder()
+                .addComponents(new ButtonBuilder().setCustomId('Global_Verify_Button').setLabel('Verify').setStyle('Primary').setDisabled(false));
+            await interaction.editReply({ components: [row] });
             await interaction.followUp({ content: 'Unable to verify. Please double check you have set the correct title & portrait & then "
             + "click verify again.', ephemeral: true });
+        }
     }
 }
