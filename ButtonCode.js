@@ -4,9 +4,9 @@ if (interaction.isButton()) {
     if (interaction.customId === 'Global_Verify_Button')
     {
         await interaction.deferUpdate({ephemeral: true })
-        const row = new Discord.ActionRowBuilder()
+        const disabledButtonRow = new Discord.ActionRowBuilder()
                 .addComponents(new ButtonBuilder().setCustomId('Global_Verify_Button').setLabel('Verify').setStyle('Secondary').setDisabled(true));
-        await interaction.editReply({ components: [row] });
+        await interaction.editReply({ components: [disabledButtonRow] });
         
         const embed = interaction.message.embeds[0]
         const allyCode = embed.title.replace(/\D/g, "")
@@ -32,9 +32,9 @@ if (interaction.isButton()) {
         }
         else
         {
-            const row = new Discord.ActionRowBuilder()
+            const enabledButtonRow = new Discord.ActionRowBuilder()
                 .addComponents(new ButtonBuilder().setCustomId('Global_Verify_Button').setLabel('Verify').setStyle('Primary').setDisabled(false));
-            await interaction.editReply({ components: [row] });
+            await interaction.editReply({ components: [enabledButtonRow] });
             await interaction.followUp({ content: 'Unable to verify. Please double check you have set the correct title & portrait & then "
             + "click verify again.', ephemeral: true });
         }
