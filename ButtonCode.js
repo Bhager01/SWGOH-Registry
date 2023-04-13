@@ -4,12 +4,20 @@ if (interaction.isButton()) {
     if (interaction.customId === 'Global_Verify_Button')
     {
         await interaction.deferUpdate({ephemeral: true })
+        const updatedSelectMenu = interaction.message.components[0].components[0];
+        let selectedValue
+
+        if(updatedSelectMenu.options.find(option => option.default) == undefined)
+            selectedValue = "nil"
+        else
+            selectedValue = updatedSelectMenu.options.find(option => option.default).value
+
         const embed = interaction.message.embeds[0]
         const allyCode = embed.title.replace(/\D/g, "")
-        const comlinkPayload = {'discordId':interaction.user.id, "method":"verification", "payload": {"allyCode": String(allyCode)}, "enums": false}
+        const comlinkPayload = {'discordId':interaction.user.id, "method":"verification", "primary":selectedValue, "payload": {"allyCode": String(allyCode)}, "enums": false}
         const comlinkHeaders = {
             "Content-Type": "application/json",
-            "Authorization": "XXXXXXXXXXXX" //replace with your API key
+            "Authorization": "XXXXXXXXX" //replace with your API key
         }
         //ComlinkFetch is my own function for doing API calls.  It has built in retry and error handling.  Use whatever method your currently have for API calls here.
         const comlinkResponse = await ComlinkFetch("http://ec2-44-194-200-153.compute-1.amazonaws.com/api/comlink", comlinkHeaders, comlinkPayload)
@@ -22,15 +30,33 @@ if (interaction.isButton()) {
         }
 
         const comlinkJSON = await comlinkResponse.json()
-        if(comlinkJSON == 'verified')
-        {   
+        if(comlinkJSON == 'yes')
+        {  
+            const row2 = new Discord.ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setCustomId('Global_Verify_Button')
+                    .setLabel('Verify')
+                    .setStyle('Primary')
+                    .setDisabled(true));
+            
             const row = new Discord.ActionRowBuilder()
-                .addComponents(new ButtonBuilder().setCustomId('Global_Verify_Button').setLabel('Verify').setStyle('Primary').setDisabled(true));
-            await interaction.editReply({ components: [row] })
+            .addComponents(
+                new StringSelectMenuBuilder()
+                .setCustomId('verify_options')
+                .setPlaceholder('Set as primary account (Used if you have multiple accounts)')
+                .setOptions([
+                    { label: 'Yes', value: 'yes'},
+                    { label: 'No', value: 'no'},
+                ])
+                .setDisabled(true)
+            )
+
+            await interaction.editReply({ components: [row,row2] })
             await interaction.followUp({ content: 'You have been sucessfully verified!', ephemeral: true });
         }
+
         else
-            await interaction.followUp({ content: 'Unable to verify. Please double check you have set the correct title & portrait & then "
-            + "click verify again.', ephemeral: true });
+            await interaction.followUp({ content: 'Unable to verify. Please double check you have set the correct title & portrait & then click verify again.', ephemeral: true });
     }
 }
