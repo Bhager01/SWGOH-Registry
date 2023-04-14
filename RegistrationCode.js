@@ -7,7 +7,7 @@ and title data*/
 const comlinkPayload = {"discordId": String(discordId), "method":"registration", "payload": {"allyCode": String(allyCode)}, "enums": false}
 const comlinkHeaders = {
     "Content-Type": "application/json",
-    "Authorization": "XXXXXXXXXXXXXXXXXXXXXX"  //replace with your API key
+    "api-key": "XXXXXXXXXXXXXXXXXXXXXX"  //replace with your API key
 }
 //ComlinkFetch is my own function for doing API calls.  It has built in retry and error handling.  Use whatever method your currently have for API calls here.
 const comlinkResponse = await ComlinkFetch("http://ec2-44-194-200-153.compute-1.amazonaws.com/api/comlink", comlinkHeaders, comlinkPayload)
