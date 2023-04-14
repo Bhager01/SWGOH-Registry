@@ -26,8 +26,8 @@ const row = new Discord.ActionRowBuilder()
         .setCustomId('verify_options')
         .setPlaceholder('Set as primary account (Used if you have multiple accounts)')
         .setOptions([
-            { label: "Yes", value: "yes" },
-            { label: "No", value: "no" },
+            { label: "Yes", value: "true" },
+            { label: "No", value: "false" },
         ])
 )
 const row2 = new Discord.ActionRowBuilder()
@@ -40,7 +40,7 @@ const row2 = new Discord.ActionRowBuilder()
 
 let embedDescription
 
-if(comlinkJSON.verified == 'no')
+if(comlinkJSON.verified == false)
     embedDescription = "Mhanndalorian Bot is a participant in the SWGOH registry of allycodes & Discord IDs. To verify ownership of the allycode registered, "
                     + "set your in game title and portrait to what is shown below & then click verify.  Verification is optional, but ensures no one can register your "
                     + " allycode to a different ID in the registry."
