@@ -8,7 +8,6 @@ const Response =  await fetch("http://ec2-44-194-200-153.compute-1.amazonaws.com
     method: "post",
     headers: {
         'api-key': 'XXXXXXXXXX', //Replace with your API key
-        "Authorization": "XXXXXXXXX",  //Replace with your API key
         'Content-Type': 'application/json',
     },
     body: JSON.stringify(data)
