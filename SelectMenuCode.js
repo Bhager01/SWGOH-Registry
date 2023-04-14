@@ -9,8 +9,8 @@ if(interaction.isStringSelectMenu())
                 .setCustomId('verify_options')
                 .setPlaceholder('Set as primary account (Used if you have multiple accounts)')
                 .setOptions([
-                    { label: 'Yes', value: 'yes', default: selectedValue === 'yes'},
-                    { label: 'No', value: 'no', default: selectedValue === 'no'},
+                    { label: 'Yes', value: 'true', default: selectedValue === 'true'},
+                    { label: 'No', value: 'false', default: selectedValue === 'false'},
                 ])
             )
 
