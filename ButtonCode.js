@@ -30,7 +30,7 @@ if (interaction.isButton()) {
         }
 
         const comlinkJSON = await comlinkResponse.json()
-        if(comlinkJSON == 'yes')
+        if(comlinkJSON.verified == true)
         {  
             const row2 = new Discord.ActionRowBuilder()
             .addComponents(
@@ -46,8 +46,8 @@ if (interaction.isButton()) {
                 .setCustomId('verify_options')
                 .setPlaceholder('Set as primary account (Used if you have multiple accounts)')
                 .setOptions([
-                    { label: 'Yes', value: 'yes'},
-                    { label: 'No', value: 'no'},
+                    { label: 'Yes', value: 'true'},
+                    { label: 'No', value: 'false'},
                 ])
                 .setDisabled(true)
             )
