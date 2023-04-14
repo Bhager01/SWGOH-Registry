@@ -17,7 +17,7 @@ if (interaction.isButton()) {
         const comlinkPayload = {'discordId':interaction.user.id, "method":"verification", "primary":selectedValue, "payload": {"allyCode": String(allyCode)}, "enums": false}
         const comlinkHeaders = {
             "Content-Type": "application/json",
-            "Authorization": "XXXXXXXXX" //replace with your API key
+            "api-key": "XXXXXXXXX" //replace with your API key
         }
         //ComlinkFetch is my own function for doing API calls.  It has built in retry and error handling.  Use whatever method your currently have for API calls here.
         const comlinkResponse = await ComlinkFetch("http://ec2-44-194-200-153.compute-1.amazonaws.com/api/comlink", comlinkHeaders, comlinkPayload)
