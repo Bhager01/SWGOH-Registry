@@ -4,6 +4,8 @@ if (interaction.isButton()) {
     if (interaction.customId === 'Global_Verify_Button')
     {
         await interaction.deferUpdate({ephemeral: true })
+        await toggleComponents(interaction, false);
+
         const updatedSelectMenu = interaction.message.components[0].components[0];
         let selectedValue
 
@@ -24,6 +26,7 @@ if (interaction.isButton()) {
 
         if(comlinkResponse == 'Error')
         {
+            await toggleComponents(interaction, true);
             await interaction.followUp({ content: 'Error when attempting to verify. Please click verify again.', ephemeral: true });
             console.error("Error contacting Comlink after verify was clicked.")
             return 0;
@@ -31,32 +34,36 @@ if (interaction.isButton()) {
 
         const comlinkJSON = await comlinkResponse.json()
         if(comlinkJSON.verified == true)
-        {  
-            const row2 = new Discord.ActionRowBuilder()
-            .addComponents(
-                new ButtonBuilder()
-                    .setCustomId('Global_Verify_Button')
-                    .setLabel('Verify')
-                    .setStyle('Primary')
-                    .setDisabled(true));
-            
-            const row = new Discord.ActionRowBuilder()
-            .addComponents(
-                new StringSelectMenuBuilder()
+        {
+            await interaction.followUp({ content: 'You have been sucessfully verified!', ephemeral: true });
+        }
+
+        else {
+            await toggleComponents(interaction, true);
+            await interaction.followUp({ content: 'Unable to verify. Please double check you have set the correct title & portrait & then click verify again.', ephemeral: true });
+        }
+    }
+}
+
+async function toggleComponents(interaction, enabled) {
+    const buttonRow = new Discord.ActionRowBuilder()
+        .addComponents(
+            new ButtonBuilder()
+                .setCustomId('Global_Verify_Button')
+                .setLabel('Verify')
+                .setStyle(enabled ? 'Primary' : 'Secondary')
+                .setDisabled(!enabled)
+        );
+    const menuRow = new Discord.ActionRowBuilder()
+        .addComponents(
+            new StringSelectMenuBuilder()
                 .setCustomId('verify_options')
                 .setPlaceholder('Set as primary account (Used if you have multiple accounts)')
                 .setOptions([
                     { label: 'Yes', value: 'true'},
                     { label: 'No', value: 'false'},
                 ])
-                .setDisabled(true)
-            )
-
-            await interaction.editReply({ components: [row,row2] })
-            await interaction.followUp({ content: 'You have been sucessfully verified!', ephemeral: true });
-        }
-
-        else
-            await interaction.followUp({ content: 'Unable to verify. Please double check you have set the correct title & portrait & then click verify again.', ephemeral: true });
-    }
+                .setDisabled(!enabled)
+        );
+    await interaction.editReply({ components: [menuRow,buttonRow] });
 }
