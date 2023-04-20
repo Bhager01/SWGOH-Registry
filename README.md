@@ -40,5 +40,5 @@ DiscordId and allyCode are strings that represent the user registered.  The api-
  - unlockedPlayerTitle (object)
 
 The verified property is used to report if the user is already verified in the database.  The unlockedPlayerPortrait and unlockedPlayerTitle objects are used to create a Discord embed that the a player can use to verify (or reverify) their account.  The embed will look like what is shown below:
-![enter image description here](https://i.postimg.cc/MGGWZ6Nc/Verification.jpg)
+![Verification screen shot](https://i.postimg.cc/L8F5SgzN/Verification2.jpg)
 For a complete implementation of the register function, check out the code [here](https://github.com/Bhager01/SWGOH-Registry/blob/main/RegistrationCode.js).
