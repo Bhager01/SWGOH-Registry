@@ -1,10 +1,10 @@
 # SWGOH Registry
 The SWGOH Registry is a database that stores a registration between a SWGOH allycode and Discord ID.  The code for the registry contains three main components:
- - Fetch
+ - [Fetch](#fetch)
  - Register
  - Verify
  
-## Fetch
+## Fetch <a name="fetch"></a>
 Fetch is designed to take in a parameter that identifies a user and returns the following if the user is found:
  - allyCode (string)
  - discordId (string)
