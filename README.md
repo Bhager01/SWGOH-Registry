@@ -68,7 +68,7 @@ const comlinkHeaders = {
 }
 ```
 
-Java (with Lombok):
+Java:
 ```java
 public class SwgohRegistryRegisterRequest {
     public final Payload payload;
