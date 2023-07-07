@@ -62,10 +62,15 @@ Register utilizes a payload in the following format:
 Javascript:
 ```javascript
 const comlinkPayload = {"discordId": String(discordId), "method":"registration", "payload": {"allyCode": String(allyCode)}, "enums": false}    
-const comlinkHeaders = {    
-    "Content-Type": "application/json",    
-    "api-key": "XXXXXXXX" //replace with your API key
-}
+const  Response = await fetch("http://ec2-44-194-200-153.compute-1.amazonaws.com/api/comlink",
+{
+    method:  "post",
+    headers: {
+        'api-key': 'XXXXXX', //Replace with your API key
+        'Content-Type':  'application/json',
+    },
+    body:  JSON.stringify(comlinkPayload)
+})
 ```
 
 Java:
