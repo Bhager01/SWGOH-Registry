@@ -4,7 +4,7 @@ user registered on or after 4-13-2023/*
 
 const data = {'user': ['561963325'],'endpoint': 'find'}
 
-const Response =  await fetch("http://ec2-44-194-200-153.compute-1.amazonaws.com/api/database", {
+const Response =  await fetch("http://mhanndalorianbot.work/api/database", {
     method: "post",
     headers: {
         'api-key': 'XXXXXXXXXX', //Replace with your API key
