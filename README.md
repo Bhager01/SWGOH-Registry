@@ -17,7 +17,7 @@ Javascript:
 ```javascript
 const  data = {'user': ['561963325'],'endpoint':  'find'}
 const  Response = await 
-fetch("http://ec2-44-194-200-153.compute-1.amazonaws.com/api/database",
+fetch("http://mhanndalorianbot.work/api/database",
 {
     method:  "post",
     headers: {
@@ -46,7 +46,7 @@ public Flux<SwgohRegistryFetchResponse> fetchRegistration() {
     return WebClient
       .create()
       .post()
-      .uri( "http://ec2-44-194-200-153.compute-1.amazonaws.com/api/database" )
+      .uri( "http://mhanndalorianbot.work/api/database" )
       .contentType( MediaType.APPLICATION_JSON )
       .header( "api-key", "XXXXXX" )  //Replace with your API key
       .bodyValue( new SwgohRegistryFetchRequest( List.of( "561963325" ) ) )
@@ -62,7 +62,7 @@ Register utilizes a payload in the following format:
 Javascript:
 ```javascript
 const comlinkPayload = {"discordId": String(discordId), "method":"registration", "payload": {"allyCode": String(allyCode)}, "enums": false}    
-const  Response = await fetch("http://ec2-44-194-200-153.compute-1.amazonaws.com/api/comlink",
+const  Response = await fetch("http://mhanndalorianbot.work/api/comlink",
 {
     method:  "post",
     headers: {
